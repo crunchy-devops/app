@@ -1,14 +1,60 @@
+# Created by AI assistant
+
+# General
+.DS_Store
+*.log
+hs_err_pid*
+
+# Database
+database.db
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+/build/
+
+# Maven
 /target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# Scala
+/project/boot/
+/project/plugins/project/
+/project/target/
+.bloop/
+.metals/
+.ensime_cache/
+*.swp
+
+# IDEs
+# IntelliJ IDEA
 .idea/
+*.iml
+*.ipr
+*.iws
+/out/
+
+# VSCode
 .vscode/
-.settings
+
+# Eclipse
+.settings/
 .project
 .classpath
 
-*.iml
-.DS_Store
+# NetBeans
+nbproject/
 
-# The following files are generated/updated by vaadin-maven-plugin
+
+# Vaadin
 node_modules/
 src/main/frontend/generated/
 vite.generated.ts
