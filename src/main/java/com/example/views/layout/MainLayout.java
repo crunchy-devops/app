@@ -2,6 +2,7 @@ package com.example.views.layout;
 
 import com.example.views.HomeView;
 import com.example.views.TeamsView;
+import com.example.views.UserView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
@@ -43,7 +44,8 @@ public class MainLayout extends AppLayout {
                 new RouterLink("Credentials", HomeView.class),
                 new RouterLink("Inventory", HomeView.class),
                 new RouterLink("Logs", HomeView.class),
-                new RouterLink("Settings", HomeView.class)
+                new RouterLink("Settings", HomeView.class),
+                new RouterLink("User", UserView.class)
         ));
     }
 }

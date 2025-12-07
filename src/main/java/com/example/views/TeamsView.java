@@ -15,8 +15,11 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import jakarta.annotation.security.PermitAll;
+
 @PageTitle("Teams")
 @Route(value = "teams", layout = MainLayout.class)
+@PermitAll
 public class TeamsView extends VerticalLayout {
 
     private final TeamRepository teamRepository;
