@@ -1,20 +1,31 @@
 package com.example.views.layout;
 
+import com.example.SecurityService;
 import com.example.views.HomeView;
 import com.example.views.TeamsView;
 import com.example.views.UserView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MainLayout extends AppLayout {
 
-    public MainLayout() {
+    private final SecurityService securityService;
+
+    public MainLayout(SecurityService securityService) {
+        this.securityService = securityService;
         createHeader();
         createDrawer();
     }
@@ -22,19 +33,27 @@ public class MainLayout extends AppLayout {
     private void createHeader() {
         H1 logo = new H1("AnsibleFlow");
         logo.addClassNames(
-            LumoUtility.FontSize.LARGE,
-            LumoUtility.Margin.MEDIUM);
+                LumoUtility.FontSize.LARGE,
+                LumoUtility.Margin.MEDIUM);
 
-        HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo);
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+
+        Span dateTime = new Span(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        Span userSpan = new Span("Welcome, " + username);
+
+        Button logoutButton = new Button("Log out", e -> securityService.logout());
+
+        HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo, userSpan, dateTime, logoutButton);
+        header.expand(logo); // Push the user info and clock to the right
 
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.setWidth("100%");
         header.addClassNames(
-            LumoUtility.Padding.Vertical.NONE,
-            LumoUtility.Padding.Horizontal.MEDIUM);
+                LumoUtility.Padding.Vertical.NONE,
+                LumoUtility.Padding.Horizontal.MEDIUM);
 
         addToNavbar(header);
-
     }
 
     private void createDrawer() {
