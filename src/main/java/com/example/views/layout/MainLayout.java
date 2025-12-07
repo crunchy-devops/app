@@ -4,6 +4,7 @@ import com.example.SecurityService;
 import com.example.views.HomeView;
 import com.example.views.TeamsView;
 import com.example.views.UserView;
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
@@ -23,6 +24,8 @@ import java.time.format.DateTimeFormatter;
 public class MainLayout extends AppLayout {
 
     private final SecurityService securityService;
+    private final Span userSpan = new Span();
+    private final Span dateTime = new Span();
 
     public MainLayout(SecurityService securityService) {
         this.securityService = securityService;
@@ -36,16 +39,10 @@ public class MainLayout extends AppLayout {
                 LumoUtility.FontSize.LARGE,
                 LumoUtility.Margin.MEDIUM);
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userDetails.getUsername();
-
-        Span dateTime = new Span(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        Span userSpan = new Span("Welcome, " + username);
-
         Button logoutButton = new Button("Log out", e -> securityService.logout());
 
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo, userSpan, dateTime, logoutButton);
-        header.expand(logo); // Push the user info and clock to the right
+        header.expand(logo);
 
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.setWidth("100%");
@@ -54,6 +51,16 @@ public class MainLayout extends AppLayout {
                 LumoUtility.Padding.Horizontal.MEDIUM);
 
         addToNavbar(header);
+    }
+
+    @Override
+    protected void onAttach(AttachEvent attachEvent) {
+        super.onAttach(attachEvent);
+        // The user is guaranteed to be logged in when this is called.
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        userSpan.setText("Welcome, " + username);
+        dateTime.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 
     private void createDrawer() {

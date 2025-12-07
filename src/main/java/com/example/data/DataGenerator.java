@@ -15,6 +15,7 @@ public class DataGenerator {
                 User admin = new User();
                 admin.setUsername("admin");
                 admin.setPassword(passwordEncoder.encode("password"));
+                admin.setDescription("Default administrator account.");
                 userRepository.save(admin);
             }
         };
