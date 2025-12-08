@@ -1,6 +1,7 @@
 package com.example.views.layout;
 
 import com.example.SecurityService;
+import com.example.views.CredentialView;
 import com.example.views.HomeView;
 import com.example.views.TeamsView;
 import com.example.views.UserView;
@@ -68,7 +69,7 @@ public class MainLayout extends AppLayout {
                 new RouterLink("Teams", TeamsView.class),
                 new RouterLink("User", UserView.class),
                 new RouterLink("Projects", HomeView.class),
-                new RouterLink("Credentials", HomeView.class),
+                new RouterLink("Credentials", CredentialView.class),
                 new RouterLink("Inventory", HomeView.class),
                 new RouterLink("Logs", HomeView.class),
                 new RouterLink("Settings", HomeView.class)
