@@ -66,12 +66,12 @@ public class MainLayout extends AppLayout {
     private void createDrawer() {
         addToDrawer(new VerticalLayout(
                 new RouterLink("Teams", TeamsView.class),
+                new RouterLink("User", UserView.class),
                 new RouterLink("Projects", HomeView.class),
                 new RouterLink("Credentials", HomeView.class),
                 new RouterLink("Inventory", HomeView.class),
                 new RouterLink("Logs", HomeView.class),
-                new RouterLink("Settings", HomeView.class),
-                new RouterLink("User", UserView.class)
+                new RouterLink("Settings", HomeView.class)
         ));
     }
 }
